@@ -1,0 +1,20 @@
+{
+  "name": "Social_Media_Lead_Discovery_and_Auto_Posting_Bot",
+  "version": "2.0.0",
+  "description": "Social media lead discovery and auto-posting bot for Facebook and Quora",
+  "main": "crawl-pages42.js",
+  "scripts": {
+    "crawl":           "node crawl-pages42.js",
+    "discover:google": "node discover-pages4.js",
+    "discover:quora":  "node discover-pages8.js",
+    "cookies":         "node checkCookies2.js",
+    "login":           "node googleLogin.js"
+  },
+  "dependencies": {
+    "dotenv":                  "^16.4.5",
+    "mysql2":                  "^3.9.0",
+    "puppeteer":               "^21.7.0",
+    "winston":                 "^3.13.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  }
+}

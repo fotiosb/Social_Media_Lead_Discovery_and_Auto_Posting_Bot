@@ -1,0 +1,2 @@
+0 7 * * * cd /home/ubuntu/pup;node crawl-pages42.js
+0 2 * * 2,5 cd /home/ubuntu/pup;node discover-pages8.js
