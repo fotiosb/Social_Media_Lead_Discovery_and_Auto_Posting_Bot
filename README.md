@@ -23,9 +23,8 @@
 11. [Running the System](#running-the-system)
 12. [Scheduling with Cron](#scheduling-with-cron)
 13. [Scaling](#scaling)
-14. [Fixes Applied (vs Original)](#fixes-applied-vs-original)
-15. [Security Considerations](#security-considerations)
-16. [Legal & Ethical Considerations](#legal--ethical-considerations)
+14. [Security Considerations](#security-considerations)
+15. [Legal & Ethical Considerations](#legal--ethical-considerations)
 
 ---
 
@@ -465,27 +464,6 @@ pm2 start crawl-pages42.js -i 3 --name Social_Media_Lead_Discovery_and_Auto_Post
 ### Multi-Niche
 
 Replicate the DB schema under a different database name and point separate `.env` instances at each.
-
----
-
-## Fixes Applied (vs Original)
-
-This is the **fixed** version of the codebase. The following 12 issues were identified in the original and resolved:
-
-| # | Issue | Fix |
-|---|---|---|
-| 1 | **Hardcoded credentials** — DB password, Google email/password in plaintext | All secrets moved to `.env` + `dotenv` |
-| 2 | **SQL injection** — string concatenation with scraped data | All queries use parameterised placeholders via `mysql2` |
-| 3 | **Deprecated `mysql` package** — unmaintained, callback-only | Migrated to `mysql2/promise` throughout |
-| 4 | **Deprecated Puppeteer API** — `page.waitForTimeout()` removed in v22+ | Replaced with `sleep()` helper (`setTimeout` promise) |
-| 5 | **`getOneToThree()` hardcoded** — `return 3` override always picked Quora unanswered queue | Removed override; `pickQueue()` in `utils/puppeteer.js` is truly random 1–3 |
-| 6 | **`eta_tags` race condition** — two async callbacks; crawl query could fire before tags loaded | Tags now loaded first with `await` before queue is selected |
-| 7 | **`getBotAnswer()` ReferenceError** in `crawl-pages40.js` — called inside `page.evaluate()` browser context | Removed; uses external AI endpoint approach from v42 |
-| 8 | **`quoraLinks` null crash** — `String.match()` returns `null` when no matches, then `.length` throws | Guarded with `|| []` |
-| 9 | **Quora 24-hr gate not awaited** in `crawl-pages41.js` — `goun` flag set in callback but checked synchronously | DB check now properly `await`-ed before the gate condition |
-| 10 | **No structured logging** — only `console.log` | Winston logger with daily-rotate-file in `config/logger.js` |
-| 11 | **No retry logic** — transient timeouts permanently discard URLs | `navigateTo()` in `utils/puppeteer.js` retries 3× with exponential backoff |
-| 12 | **`page3` timeout not set** — `setDefaultNavigationTimeout(0)` missing on the reactionary-profiles page | Added to all page instances consistently |
 
 ---
 
