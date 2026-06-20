@@ -486,3 +486,9 @@ Replicate the DB schema under a different database name and point separate `.env
 - Collecting personal data (names, contact info) from social profiles without consent may be subject to privacy regulations.
 - Auto-posting AI-generated content must be disclosed where required by platform rules and applicable law.
 - This software is provided as-is for educational and research purposes. The author (Fotios Basagiannis) assumes no liability for misuse.
+
+---
+
+## License
+
+MIT — Coded by Fotios Basagiannis
